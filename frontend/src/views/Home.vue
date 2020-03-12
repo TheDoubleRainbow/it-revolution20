@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header :username = "profile.name"></Header>
+    <Header :username = "profile.name" @logout="logout()"></Header>
 
     <div class="home-container">
       <div class="activity">
@@ -46,6 +46,12 @@ export default {
     } else {
       router.push('/login');
     }
+  },
+  methods: {
+    logout() {
+      this.$store.commit('removeToken', null);
+      router.push('/login');
+    },
   },
   computed: {
     profile () {
