@@ -7,12 +7,12 @@
             <div class="activity_date-container">
               <div class="activity-date">{{el.date}}</div>
               <div class="activity-date">
-                  {{el.duration}} h
+                  {{(el.duration).toFixed(2)}} h
                 </div>
             </div>
           </div>
         <div>
-          <img src="../../assets/1.png" alt="">
+          <img :src="`@/assets/${el.satisfation}a.svg`" alt="">
           {{el.satisfation}}
         </div>
       </div>
