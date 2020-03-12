@@ -507,7 +507,7 @@ exports.register = async (req, res) => {
       const item = await registerUser(req)
       const userInfo = setUserInfo(item)
       const response = returnRegisterToken(item, userInfo)
-      emailer.sendRegistrationEmailMessage(locale, item)
+      // emailer.sendRegistrationEmailMessage(locale, item)
       res.status(201).json(response)
     }
   } catch (error) {

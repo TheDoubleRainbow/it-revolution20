@@ -106,7 +106,7 @@ const genSalt = (user, SALT_FACTOR, next) => {
 UserSchema.pre('save', function(next) {
   const that = this
   const SALT_FACTOR = 5
-  if (!that.isModified('password') || !passport) {
+  if (!that.isModified('password')) {
     return next()
   }
   return genSalt(that, SALT_FACTOR, next)
