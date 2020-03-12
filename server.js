@@ -57,7 +57,25 @@ i18n.configure({
 app.use(i18n.init)
 
 // Init all other stuff
-app.use(cors({origin: '*'}))
+app.use(function (req, res, next) {
+  var origins = [
+      'http://example.com',
+      'http://www.example.com'
+  ];
+
+  for(var i = 0; i < origins.length; i++){
+      var origin = origins[i];
+
+      if(req.headers.origin.indexOf(origin) > -1){
+          res.header('Access-Control-Allow-Origin', req.headers.origin);
+      }
+  }
+  
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
+// app.use(cors({origin: '*'}))
 app.use(passport.initialize())
 app.use(compression())
 app.use(helmet())
