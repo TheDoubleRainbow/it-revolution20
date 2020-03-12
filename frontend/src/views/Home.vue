@@ -38,6 +38,11 @@ export default {
   data: () => ({
     username: 'Username',
   }),
+  created() {
+    if (sessionStorage.token) {
+      this.$store.commit('setToken', sessionStorage.token);
+    }
+  },
 };
 </script>
 
