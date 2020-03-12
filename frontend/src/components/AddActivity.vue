@@ -28,11 +28,16 @@
     <div class="satisfaction">
       <div class="satisfaction-label">Activity satisfaction</div>
       <div>
-        <img class="satisfaction-img" @click="" src="../../assets/1.png" alt="">
-        <img class="satisfaction-img" @click="" src="../../assets/2.png" alt="">
-        <img class="satisfaction-img" @click="" src="../../assets/3.png" alt="">
-        <img class="satisfaction-img" @click="" src="../../assets/4.png" alt="">
-        <img class="satisfaction-img" @click="" src="../../assets/5.png" alt="">
+        <img class="satisfaction-img" v-show="satisfaction != 0" @click="satisfaction = 0" src="../../assets/0.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction === 0" @click="satisfaction = 0" src="../../assets/0a.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction != 1" @click="satisfaction = 1" src="../../assets/1.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction === 1" @click="satisfaction = 0" src="../../assets/1a.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction != 2" @click="satisfaction = 2" src="../../assets/2.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction === 2" @click="satisfaction = 0" src="../../assets/2a.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction != 3" @click="satisfaction = 3" src="../../assets/3.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction === 3" @click="satisfaction = 0" src="../../assets/3a.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction != 4" @click="satisfaction = 4" src="../../assets/4.svg" alt="">
+        <img class="satisfaction-img" v-show="satisfaction === 4" @click="satisfaction = 0" src="../../assets/4a.svg" alt="">
       </div>
     </div>
     <b-button @click="addEvent()" class="add-button" type="is-dark is-fullwidth">Add activity</b-button>
@@ -46,7 +51,7 @@ export default {
     date: new Date(),
     time: new Date('01.01.2020 00:00'),
     activity: '',
-    satisfaction: 4,
+    satisfaction: 2,
   }),
   methods: {
     addEvent() {
