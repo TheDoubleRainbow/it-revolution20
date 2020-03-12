@@ -118,7 +118,7 @@ export default new Vuex.Store({
         });
     },
     getEvents({commit, state}) {
-      fetch(`${url}api/profile/tasks`,
+      fetch(`${url}api/profile/tasks?limit=9999`,
         {
           method: 'GET',
           headers: {
