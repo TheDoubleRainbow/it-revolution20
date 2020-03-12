@@ -38,6 +38,11 @@ export default {
   data: () => ({
     username: 'Username',
   }),
+  created() {
+    if (sessionStorage.token) {
+      this.$store.commit('setToken', sessionStorage.token);
+    }
+  },
 };
 </script>
 
@@ -46,5 +51,14 @@ export default {
     max-width: 1170px;
     margin: 0 auto;
     display: flex;
+  }
+
+  .block-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .activity-list {
+    margin-top: 30px;
   }
 </style>

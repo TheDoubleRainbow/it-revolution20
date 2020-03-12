@@ -15,22 +15,22 @@
       <div class="form">
 
         <b-field label="Email">
-          <b-input type="email">
+          <b-input v-model="email" type="email">
           </b-input>
         </b-field>
 
         <b-field v-show="isSignUp" label="Username">
-          <b-input type="text">
+          <b-input v-model="username" type="text">
           </b-input>
         </b-field>
 
         <b-field label="Password">
-          <b-input type="password">
+          <b-input v-model="password" type="password">
           </b-input>
         </b-field>
 
         <b-field v-show ="isSignUp" label="Repeat password">
-          <b-input type="password">
+          <b-input v-model="repeat" type="password">
           </b-input>
         </b-field>
 
@@ -39,6 +39,14 @@
                   type="is-dark is-fullwidth">
           {{isSignUp ? 'Sign Up' : 'Sign In'}}
         </b-button>
+
+        <hr />
+
+        <div class="social-login">
+          <b-button tag="a" href="https://doit-timetracker.herokuapp.com/api/google" class="google" icon-left="google">Sign in with Google</b-button>
+          <b-button tag="a" href="http://doit-timetracker.herokuapp.com/api/facebook" class="facebook" icon-left="facebook">Sign in with Facebook</b-button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -48,13 +56,39 @@
 
 export default {
   name: 'Login',
+  props: ['callback'],
   data: () => ({
     isSignUp: true,
+    email: '',
+    username: '',
+    password: '',
+    repeat: '',
   }),
   methods: {
     auth() {
-      this.$router.push('/');
+      if (this.isSignUp && this.email && this.username
+        && this.password && this.password === this.repeat) {
+        this.$store.dispatch('register', {
+          name: this.username,
+          email: this.email,
+          password: this.password,
+        });
+      } else if (!this.isSignUp && this.email && this.password) {
+        this.$store.dispatch('login', {
+          email: this.email,
+          password: this.password,
+        });
+      }
     },
+  },
+  created() {
+    if (this.callback) {
+      this.$store.dispatch('loginProvider', {
+        provider: this.$route.params.provider,
+        data: this.$route.query,
+      });
+      console.log(this.$route);
+    }
   },
 };
 </script>
@@ -97,5 +131,24 @@ export default {
 
   .action-button {
     margin-top: 30px;
+  }
+
+  .google {
+    background-color: #F14336;
+  }
+
+  .facebook {
+    background-color: #475993;
+  }
+
+  .google, .facebook {
+    color: white;
+    font-size: 15px;
+    width: calc(50% - 10px);
+  }
+
+  .social-login {
+    display: flex;
+    justify-content: space-between;
   }
 </style>
