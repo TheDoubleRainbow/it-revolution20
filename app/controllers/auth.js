@@ -477,6 +477,21 @@ exports.googleLogin = async (req, res) => {
   }
 }
 
+exports.facebookLogin = async (req, res) => {
+  try {
+    const data = matchedData(req)
+    const user = req.user
+    await userIsBlocked(user)
+    await checkLoginAttemptsAndBlockExpires(user)
+    // all ok, register access and return token
+    user.loginAttempts = 0
+    await saveLoginAttemptsToDB(user)
+    res.status(200).json(await saveUserAccessAndReturnToken(req, user))
+  } catch (error) {
+    utils.handleError(res, error)
+  }
+}
+
 /**
  * Register function called by route
  * @param {Object} req - request object

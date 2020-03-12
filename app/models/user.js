@@ -16,7 +16,6 @@ const UserSchema = new mongoose.Schema(
         message: 'EMAIL_IS_NOT_VALID'
       },
       lowercase: true,
-      unique: true,
       required: false
     },
     password: {

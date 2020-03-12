@@ -70,8 +70,15 @@ router.get('/google',
 );
 
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/', session: false }),
+  passport.authenticate('google', { failureRedirect: '/login', session: false }),
   controller.googleLogin
 );
 
+router.get('/facebook',
+  passport.authenticate('facebook'));
+
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
+  controller.facebookLogin
+);
 module.exports = router

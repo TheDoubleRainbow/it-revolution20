@@ -3,6 +3,7 @@ const User = require('../app/models/user')
 const auth = require('../app/middleware/auth')
 const JwtStrategy = require('passport-jwt').Strategy
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 /**
  * Extracts token from: header, body or query
@@ -51,28 +52,42 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.GOOGLE_CALLBACL_URL
-},
-function(accessToken, refreshToken, profile, cb) {
-  console.log(profile);
-  // displayName
-  User.findOne({ googleId: profile.id }, function (err, user) {
-    console.log("Error", err, "USER", user);
-    if(!user) {
-      let user = new User({
-        name: profile.displayName,
-        googleId: profile.id,
-      })
-      user.save().then((doc) => {
-        console.log(doc);
-        return cb(err, user)
-      })
-    } else {
-      cb(err, user);
-    }
-  })
-  // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    
-  //   // return cb(err, user);
-  // });
-}
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOne({ googleId: profile.id }, function (err, user) {
+      if(!user) {
+        let user = new User({
+          name: profile.displayName,
+          googleId: profile.id,
+        })
+        user.save().then((doc) => {
+          return cb(err, user)
+        })
+      } else {
+        cb(err, user);
+      }
+    })
+  }
+));
+
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACL_URL
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOne({ facebookId: profile.id }, function (err, user) {
+      if(!user) {
+        let user = new User({
+          name: profile.displayName,
+          facebookId: profile.id,
+        })
+        user.save().then((doc) => {
+          return cb(err, user)
+        })
+      } else {
+        cb(err, user);
+      }
+    })
+  }
 ));
