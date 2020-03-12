@@ -57,7 +57,7 @@ i18n.configure({
 app.use(i18n.init)
 
 // Init all other stuff
-app.use(cors())
+app.use(cors({origin: '*'}))
 app.use(passport.initialize())
 app.use(compression())
 app.use(helmet())
