@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header :username = "username"></Header>
+    <Header :username = "profile.name"></Header>
 
     <div class="home-container">
       <div class="activity">
@@ -26,6 +26,7 @@ import Header from '../components/Header.vue';
 import AddActivity from '../components/AddActivity.vue';
 import Graph from '../components/Graph.vue';
 import List from '../components/List.vue';
+import router from '../router/index';
 
 export default {
   name: 'Home',
@@ -41,8 +42,16 @@ export default {
   created() {
     if (sessionStorage.token) {
       this.$store.commit('setToken', sessionStorage.token);
+      this.$store.dispatch('getProfile');
+    } else {
+      router.push('/login');
     }
   },
+  computed: {
+    profile () {
+      return this.$store.state.profile
+    }
+  }
 };
 </script>
 
