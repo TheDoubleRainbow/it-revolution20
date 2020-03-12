@@ -9,6 +9,7 @@ export default new Vuex.Store({
     profile: {},
     token: '',
     events: [],
+    loginError: null,
   },
   mutations: {
     setProfile(state, value){
@@ -20,10 +21,14 @@ export default new Vuex.Store({
     },
     setEvents(state, value){
       state.events = value;
+    },
+    setLoginError(state, value){
+      state.loginError = value;
     }
   },
   actions: {
     register({ commit }, data) {
+      commit('setLoginError', null);
       fetch(`${url}api/register`,
         {
           method: 'POST',
@@ -36,11 +41,14 @@ export default new Vuex.Store({
           commit('setToken', res.token);
           if (!res.errors) {
             router.push('/');
+          } else {
+            commit('setLoginError', res.errors.msg);
           }
         });
       commit('setToken', '');
     },
     login({ commit }, data) {
+      commit('setToken', null);
       fetch(`${url}api/login`,
         {
           method: 'POST',
@@ -53,7 +61,12 @@ export default new Vuex.Store({
           commit('setToken', res.token);
           if (!res.errors) {
             router.push('/');
+          } else {
+            console.log("LOGIN_ERROR");
+            commit('setLoginError', res.errors.msg);
           }
+        }).catch(() => {
+          console.log("CATCH_LOGIN_ERROR");
         });
       commit('setToken', '');
     },

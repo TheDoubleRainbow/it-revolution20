@@ -46,6 +46,7 @@
           <b-button tag="a" href="https://doit-timetracker.herokuapp.com/api/google" class="google" icon-left="google">Sign in with Google</b-button>
           <b-button tag="a" href="http://doit-timetracker.herokuapp.com/api/facebook" class="facebook" icon-left="facebook">Sign in with Facebook</b-button>
         </div>
+        <div>{{error}}</div>
 
       </div>
     </div>
@@ -90,6 +91,11 @@ export default {
       console.log(this.$route);
     }
   },
+  computed: {
+    error () {
+      return this.$store.state.loginError
+    }
+  }
 };
 </script>
 

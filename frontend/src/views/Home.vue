@@ -60,6 +60,7 @@ export default {
     max-width: 1170px;
     margin: 0 auto;
     display: flex;
+    justify-content: space-around;
   }
 
   .block-title {
