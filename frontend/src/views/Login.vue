@@ -43,8 +43,8 @@
         <hr />
 
         <div class="social-login">
-          <b-button class="google" icon-left="google">Sign in with Google</b-button>
-          <b-button class="facebook" icon-left="facebook">Sign in with Facebook</b-button>
+          <b-button tag="a" href="https://doit-timetracker.herokuapp.com/api/google" class="google" icon-left="google">Sign in with Google</b-button>
+          <b-button tag="a" href="http://doit-timetracker.herokuapp.com/api/facebook" class="facebook" icon-left="facebook">Sign in with Facebook</b-button>
         </div>
 
       </div>
@@ -65,7 +65,15 @@ export default {
   }),
   methods: {
     auth() {
-      this.$router.push('/');
+      if(this.isSignUp) {
+        if(this.email && this.username && this.password && this.password === this.repeat) {
+          this.$store.dispatch('register', {
+            name: this.username,
+            email: this.email,
+            password: this.password,
+          });
+        }
+      }
     },
   },
 };
