@@ -11,9 +11,16 @@ const routes = [
     component: Home,
   },
   {
+    path: '/:provider/callback',
+    name: 'PrivederCallback',
+    component: () => import('../views/Login.vue'),
+    props: { callback: true },
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
+    props: { callback: false },
   },
 ];
 

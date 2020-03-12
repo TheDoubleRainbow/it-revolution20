@@ -53,6 +53,22 @@ export default new Vuex.Store({
         });
       commit('setToken', '');
     },
+    loginProvider({ commit }, data) {
+      fetch(`${url}api/${data.provider}/callback?${new URLSearchParams(data.data)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((raw) => (raw.json())).then((res) => {
+          commit('setToken', res.token);
+          if (!res.errors) {
+            router.push('/');
+          }
+        });
+      commit('setToken', '');
+    },
     addEvent({state}, data) {
       fetch(`${url}api/profile/tasks`,
         {

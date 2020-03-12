@@ -56,6 +56,7 @@
 
 export default {
   name: 'Login',
+  props: ['callback'],
   data: () => ({
     isSignUp: true,
     email: '',
@@ -72,14 +73,22 @@ export default {
           email: this.email,
           password: this.password,
         });
-      }
-      else if (!this.isSignUp && this.email && this.password) {
+      } else if (!this.isSignUp && this.email && this.password) {
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password,
         });
       }
     },
+  },
+  created() {
+    if (this.callback) {
+      this.$store.dispatch('loginProvider', {
+        provider: this.$route.params.provider,
+        data: this.$route.query,
+      });
+      console.log(this.$route);
+    }
   },
 };
 </script>

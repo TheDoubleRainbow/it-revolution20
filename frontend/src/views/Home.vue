@@ -39,10 +39,10 @@ export default {
     username: 'Username',
   }),
   created() {
-    if(sessionStorage.token) {
+    if (sessionStorage.token) {
       this.$store.commit('setToken', sessionStorage.token);
     }
-  }
+  },
 };
 </script>
 
