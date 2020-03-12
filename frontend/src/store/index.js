@@ -48,6 +48,25 @@ export default new Vuex.Store({
         });
       commit('setToken', '');
     },
+    addEvent({}, data) {
+      fetch(`${url}api/profile/tasks`,
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+        .then((raw) => (raw.json())).then((res) => {
+          if (!res.errors) {
+            console.log(res);
+          }
+        });
+    },
+    getEvents({commit}) {
+
+    }
   },
   modules: {
   },
