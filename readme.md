@@ -9,6 +9,8 @@ Direct link: https://doit-timetracker.herokuapp.com
 
 To start localy:
 
+cd frontend
+
 npm i
 
 npm run serve
