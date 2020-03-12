@@ -6,10 +6,14 @@ Vue.use(Vuex);
 const url = 'https://doit-timetracker.herokuapp.com/';
 export default new Vuex.Store({
   state: {
+    profile: {},
     token: '',
     events: [],
   },
   mutations: {
+    setProfile(state, value){
+      state.profile = value;
+    },
     setToken(state, value) {
       state.token = value;
       sessionStorage.token = value;
@@ -69,6 +73,21 @@ export default new Vuex.Store({
         });
       commit('setToken', '');
     },
+    getProfile({commit, state}) {
+      fetch(`${url}api/profile`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${state.token}`,
+          },
+        })
+        .then((raw) => (raw.json())).then((res) => {
+          if (!res.errors) {
+            commit('setProfile', res);
+          }
+        });
+    },
     addEvent({state}, data) {
       fetch(`${url}api/profile/tasks`,
         {
@@ -81,7 +100,7 @@ export default new Vuex.Store({
         })
         .then((raw) => (raw.json())).then((res) => {
           if (!res.errors) {
-            console.log(res);
+            this.dispatch('getEvents');
           }
         });
     },
