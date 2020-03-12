@@ -19,6 +19,10 @@ export default new Vuex.Store({
       state.token = value;
       sessionStorage.token = value;
     },
+    removeToken(state, value) {
+      state.token = null;
+      sessionStorage.removeItem('token');
+    },
     setEvents(state, value){
       state.events = value;
     },
