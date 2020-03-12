@@ -3,7 +3,10 @@
     <div class="header-wrap">
       <div class="header-content">
         <span class="app-name">TimeTracker</span>
-        <span class="welcome-message">Welcome, {{username}}</span>
+        <div>
+          <span class="welcome-message">Welcome, {{username}}</span>
+          <span class="logoout-button" v-on:click="logout()">Logout</span>
+        </div>
       </div>
     </div>
   </header>
@@ -16,6 +19,11 @@ export default {
   props: {
     username: String,
   },
+  methods: {
+    logout() {
+      this.$emit('logout')
+    }
+  }
 };
 </script>
 
@@ -36,8 +44,14 @@ export default {
     align-content: center;
   }
 
-  .app-name, .welcome-message {
+  .app-name, .welcome-message, .logoout-button {
     font-weight: bold;
+  }
+
+  .logoout-button {
+    color: blue;
+    margin-left: 20px;
+    cursor: pointer;
   }
 
   .app-name {
