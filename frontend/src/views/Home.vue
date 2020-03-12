@@ -47,4 +47,13 @@ export default {
     margin: 0 auto;
     display: flex;
   }
+
+  .block-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .activity-list {
+    margin-top: 30px;
+  }
 </style>
