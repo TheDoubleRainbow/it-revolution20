@@ -65,14 +65,19 @@ export default {
   }),
   methods: {
     auth() {
-      if(this.isSignUp) {
-        if(this.email && this.username && this.password && this.password === this.repeat) {
-          this.$store.dispatch('register', {
-            name: this.username,
-            email: this.email,
-            password: this.password,
-          });
-        }
+      if (this.isSignUp && this.email && this.username
+        && this.password && this.password === this.repeat) {
+        this.$store.dispatch('register', {
+          name: this.username,
+          email: this.email,
+          password: this.password,
+        });
+      }
+      else if (!this.isSignUp && this.email && this.password) {
+        this.$store.dispatch('login', {
+          email: this.email,
+          password: this.password,
+        });
       }
     },
   },

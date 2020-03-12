@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import router from '../router/index';
 
 Vue.use(Vuex);
-const url = 'http://doit-timetracker.herokuapp.com/';
+const url = 'https://doit-timetracker.herokuapp.com/';
 export default new Vuex.Store({
   state: {
     token: '',
@@ -15,10 +15,36 @@ export default new Vuex.Store({
   },
   actions: {
     register({ commit }, data) {
-      fetch(`${url}api/register`, { method: 'POST', body: JSON.stringify(data) })
+      fetch(`${url}api/register`,
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
         .then((raw) => (raw.json())).then((res) => {
-          console.log(res);
-          router.push('/')
+          commit('setToken', res.token);
+          if (!res.errors) {
+            router.push('/');
+          }
+        });
+      commit('setToken', '');
+    },
+    login({ commit }, data) {
+      fetch(`${url}api/login`,
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((raw) => (raw.json())).then((res) => {
+          commit('setToken', res.token);
+          if (!res.errors) {
+            router.push('/');
+          }
         });
       commit('setToken', '');
     },
