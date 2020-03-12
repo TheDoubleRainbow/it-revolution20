@@ -15,6 +15,14 @@ export default {
         type: 'donut',
       },
       labels: ["Very bad", "Bad", "Normal", "Good", "Very good"],
+      fill: {
+        colors: ['#db1212', '#db7312', '#fff200', '#ddff00', '#22ff00']
+      },
+      legend: {
+        markers: {
+          fillColors: ['#db1212', '#db7312', '#fff200', '#ddff00', '#22ff00']
+        }
+      },
       responsive: [{
         breakpoint: 480,
           options: {
@@ -22,7 +30,10 @@ export default {
             width: 200
           },
           legend: {
-            position: 'bottom'
+            position: 'bottom',
+            labels: {
+              colors: ['#db1212', '#db7312', '#fff200', '#ddff00', '#22ff00']
+            }
           }
         }
       }]
