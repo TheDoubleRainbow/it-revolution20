@@ -17,11 +17,11 @@ const UserSchema = new mongoose.Schema(
       },
       lowercase: true,
       unique: true,
-      required: true
+      required: false
     },
     password: {
       type: String,
-      required: true,
+      required: false,
       select: false
     },
     role: {
@@ -70,6 +70,9 @@ const UserSchema = new mongoose.Schema(
       default: 0,
       select: false
     },
+    googleId: {
+      type: String
+    },
     blockExpires: {
       type: Date,
       default: Date.now,
@@ -104,7 +107,7 @@ const genSalt = (user, SALT_FACTOR, next) => {
 UserSchema.pre('save', function(next) {
   const that = this
   const SALT_FACTOR = 5
-  if (!that.isModified('password')) {
+  if (!that.isModified('password') || !passport) {
     return next()
   }
   return genSalt(that, SALT_FACTOR, next)

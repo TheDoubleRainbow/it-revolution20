@@ -65,4 +65,13 @@ router.get(
  */
 router.post('/login', trimRequest.all, validate.login, controller.login)
 
+router.get('/google',
+  passport.authenticate('google', { scope: ['profile'] })
+);
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/', session: false }),
+  controller.googleLogin
+);
+
 module.exports = router

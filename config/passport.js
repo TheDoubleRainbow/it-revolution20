@@ -2,6 +2,7 @@ const passport = require('passport')
 const User = require('../app/models/user')
 const auth = require('../app/middleware/auth')
 const JwtStrategy = require('passport-jwt').Strategy
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 /**
  * Extracts token from: header, body or query
@@ -45,3 +46,33 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
 })
 
 passport.use(jwtLogin)
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACL_URL
+},
+function(accessToken, refreshToken, profile, cb) {
+  console.log(profile);
+  // displayName
+  User.findOne({ googleId: profile.id }, function (err, user) {
+    console.log("Error", err, "USER", user);
+    if(!user) {
+      let user = new User({
+        name: profile.displayName,
+        googleId: profile.id,
+      })
+      user.save().then((doc) => {
+        console.log(doc);
+        return cb(err, user)
+      })
+    } else {
+      cb(err, user);
+    }
+  })
+  // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    
+  //   // return cb(err, user);
+  // });
+}
+));

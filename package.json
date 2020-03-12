@@ -37,6 +37,8 @@
     "nodemailer": "^6.4.5",
     "nodemailer-mailgun-transport": "^2.0.0",
     "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "remark-cli": "^7.0.1",
     "request-ip": "^2.1.3",

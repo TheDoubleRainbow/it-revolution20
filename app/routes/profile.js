@@ -1,5 +1,7 @@
 const controller = require('../controllers/profile')
+const tasksController = require('../controllers/tasks')
 const validate = require('../controllers/profile.validate')
+const validateTask = require('../controllers/tasks.validate')
 const AuthController = require('../controllers/auth')
 const express = require('express')
 const router = express.Router()
@@ -47,6 +49,23 @@ router.post(
   trimRequest.all,
   validate.changePassword,
   controller.changePassword
+)
+
+router.get(
+  '/tasks',
+  requireAuth,
+  AuthController.roleAuthorization(['user', 'admin']),
+  trimRequest.all,
+  tasksController.getUserTasks
+)
+
+router.post(
+  '/tasks',
+  requireAuth,
+  AuthController.roleAuthorization(['user', 'admin']),
+  trimRequest.all,
+  validateTask.add,
+  tasksController.createItem
 )
 
 module.exports = router

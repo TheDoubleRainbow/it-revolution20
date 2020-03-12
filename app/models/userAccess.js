@@ -10,7 +10,7 @@ const UserAccessSchema = new mongoose.Schema(
         message: 'EMAIL_IS_NOT_VALID'
       },
       lowercase: true,
-      required: true
+      required: false,
     },
     ip: {
       type: String,
