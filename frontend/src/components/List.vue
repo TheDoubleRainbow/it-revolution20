@@ -12,8 +12,7 @@
             </div>
           </div>
         <div>
-          <img :src="`@/assets/${el.satisfation}a.svg`" alt="">
-          {{el.satisfation}}
+          <img :src="getUrl(el.satisfaction)" alt="">
         </div>
       </div>
     </div>
@@ -30,6 +29,11 @@ export default {
   },
   created() {
     this.$store.dispatch('getEvents');
+  },
+  methods: {
+    getUrl(id) {
+      return require(`../../assets/${id}a.svg`);
+    }
   }
 }
 </script>
