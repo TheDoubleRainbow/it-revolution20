@@ -27,6 +27,13 @@
     </b-field>
     <div class="satisfaction">
       <div class="satisfaction-label">Activity satisfaction</div>
+      <div>
+        <img class="satisfaction-img" @click="" src="../../assets/1.png" alt="">
+        <img class="satisfaction-img" @click="" src="../../assets/2.png" alt="">
+        <img class="satisfaction-img" @click="" src="../../assets/3.png" alt="">
+        <img class="satisfaction-img" @click="" src="../../assets/4.png" alt="">
+        <img class="satisfaction-img" @click="" src="../../assets/5.png" alt="">
+      </div>
     </div>
     <b-button @click="addEvent()" class="add-button" type="is-dark is-fullwidth">Add activity</b-button>
   </div>
@@ -65,9 +72,16 @@ export default {
 
   .satisfaction-label {
     font-weight: bold;
+    margin-bottom: 0.5em;
   }
 
   .add-button {
     margin-top: 20px;
   }
+
+  .satisfaction-img {
+    width: 32px;
+    height: 32px;
+    margin-right: 20px;
+    }
 </style>
