@@ -70,7 +70,7 @@ app.use(express.static('frontend/dist'))
 app.use('/api', require('./app/routes'))
 app.get('*', function (request, response) {
   // response.sendFile(path.resolve(__dirname, 'index.html'));
-  response.sendFile('frontend/dist/index.html');
+  response.sendFile(path.resolve(__dirname, 'frontend/dist/index.html'));
 });
 app.listen(app.get('port'))
 
