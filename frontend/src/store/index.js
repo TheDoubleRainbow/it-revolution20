@@ -113,7 +113,7 @@ export default new Vuex.Store({
         })
         .then((raw) => (raw.json())).then((res) => {
           if (!res.errors) {
-            console.log(res);
+            this.dispatch('getEvents');
           }
         });
     },
