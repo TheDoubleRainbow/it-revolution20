@@ -68,6 +68,10 @@ app.use(express.static('frontend/dist'))
 // app.engine('html', require('ejs').renderFile)
 // app.set('view engine', 'html')
 app.use('/api', require('./app/routes'))
+app.get('*', function (request, response) {
+  // response.sendFile(path.resolve(__dirname, 'index.html'));
+  response.sendFile('frontend/dist/index.html');
+});
 app.listen(app.get('port'))
 
 // Init MongoDB
